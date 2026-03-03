@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bajrang Medical - Products</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --human-color: #3498db;
+            --animal-color: #e67e22;
+            --light-bg: #f8f9fa;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), #34495e) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 76px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        
+        .page-header .highlight {
+            color: var(--secondary-color);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb-section {
+            padding: 20px 0;
+            background: var(--light-bg);
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--secondary-color);
+        }
+        
+        /* Filter Buttons */
+        .filter-btn {
+            padding: 10px 25px;
+            margin: 0 5px 10px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .filter-btn.human {
+            border-color: var(--human-color);
+            color: var(--human-color);
+        }
+        
+        .filter-btn.human:hover,
+        .filter-btn.human.active {
+            background: var(--human-color);
+            color: white;
+        }
+        
+        .filter-btn.animal {
+            border-color: var(--animal-color);
+            color: var(--animal-color);
+        }
+        
+        .filter-btn.animal:hover,
+        .filter-btn.animal.active {
+            background: var(--animal-color);
+            color: white;
+        }
+        
+        /* Product Cards */
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-img i {
+            font-size: 5rem;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        .product-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .product-tag.human {
+            background: var(--human-color);
+        }
+        
+        .product-tag.animal {
+            background: var(--animal-color);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .product-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .btn-view {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer h5 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer ul li i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .footer ul li a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Bajrang <span>Medical</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categories.html">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="products.html">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Our <span class="highlight">Products</span></h1>
+        <p class="lead">Quality medicines for humans and animals</p>
+    </div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Products</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Products Section -->
+<section style="padding: 80px 0;">
+    <div class="container">
+        <!-- Filter Buttons -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                <button class="filter-btn human" onclick="filterProducts('human')">Human Medicines</button>
+                <button class="filter-btn animal" onclick="filterProducts('animal')">Animal Medicines</button>
+            </div>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="row" id="productsGrid">
+            <!-- Human Products -->
+            <div class="col-lg-3 col-md-6 mb-4 product-item human">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <span class="product-tag human">Human</span>
+                        <i class="fas fa-tablets"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Paracetamol 500mg</h4>
+                        <p>Fever & Pain Relief</p>
+                        <div class="product-price">₹45.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item human">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <span class="product-tag human">Human</span>
+                        <i class="fas fa-capsules"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Amoxicillin 250mg</h4>
+                        <p>Antibiotic</p>
+                        <div class="product-price">₹120.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item human">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #5f2c82 0%, #49a09d 100%);">
+                        <span class="product-tag human">Human</span>
+                        <i class="fas fa-vitamins"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Vitamin C 1000mg</h4>
+                        <p>Immunity Booster</p>
+                        <div class="product-price">₹280.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item human">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #e65c00 0%, #F9D423 100%);">
+                        <span class="product-tag human">Human</span>
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Insulin Regular</h4>
+                        <p>Diabetes Care</p>
+                        <div class="product-price">₹450.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animal Products -->
+            <div class="col-lg-3 col-md-6 mb-4 product-item animal">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);">
+                        <span class="product-tag animal">Animal</span>
+                        <i class="fas fa-dog"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Deworming Tablets</h4>
+                        <p>For Dogs & Cats</p>
+                        <div class="product-price">₹120.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item animal">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <span class="product-tag animal">Animal</span>
+                        <i class="fas fa-cat"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Tick & Flea Spray</h4>
+                        <p>For Pets & Livestock</p>
+                        <div class="product-price">₹350.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item animal">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">
+                        <span class="product-tag animal">Animal</span>
+                        <i class="fas fa-horse"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Multivitamin Bolus</h4>
+                        <p>For Cattle</p>
+                        <div class="product-price">₹550.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 product-item animal">
+                <div class="product-card">
+                    <div class="product-img" style="background: linear-gradient(135deg, #fad0c4 0%, #ff9a9e 100%);">
+                        <span class="product-tag animal">Animal</span>
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <div class="product-info">
+                        <h4>Vaccine - FMD</h4>
+                        <p>For Livestock</p>
+                        <div class="product-price">₹280.00</div>
+                        <button class="btn-view">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <h5>Bajrang Medical Store</h5>
+                <p>Your one-stop destination for all healthcare needs - for humans and animals alike. Quality medicines, trusted service since 2008.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 mb-4">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3 mb-4">
+                <h5>Contact Info</h5>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Main Market, City - 123456</li>
+                    <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                    <li><i class="fas fa-envelope"></i> info@bajrangmedical.com</li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3 mb-4">
+                <h5>Store Timing</h5>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 8AM - 10PM</li>
+                    <li><i class="fas fa-clock"></i> Sat: 9AM - 9PM</li>
+                    <li><i class="fas fa-clock"></i> Sun: 10AM - 6PM</li>
+                    <li><i class="fas fa-clock"></i> Emergency: 24/7</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 Bajrang Medical Store. All Rights Reserved. | Designed for Human & Animal Healthcare</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Filter products function
+function filterProducts(category) {
+    var products = document.getElementsByClassName('product-item');
+    var buttons = document.getElementsByClassName('filter-btn');
+    
+    // Remove active class from all buttons
+    for(var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+    
+    // Add active class to clicked button
+    if(category === 'all') {
+        buttons[0].classList.add('active');
+    } else if(category === 'human') {
+        buttons[1].classList.add('active');
+    } else if(category === 'animal') {
+        buttons[2].classList.add('active');
+    }
+    
+    // Filter products
+    for(var i = 0; i < products.length; i++) {
+        if(category === 'all') {
+            products[i].style.display = 'block';
+        } else {
+            if(products[i].classList.contains(category)) {
+                products[i].style.display = 'block';
+            } else {
+                products[i].style.display = 'none';
+            }
+        }
+    }
+}
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
